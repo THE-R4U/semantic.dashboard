@@ -5,20 +5,24 @@ get_inverted_value <- function(inverted) {
 #' Create a header of a dashboard.
 #' @description Create a header of a dashboard with other additional UI elements.
 #' @param ... UI elements to include within the header.
+#' @param  logo_align Where should logo be placed. One of \code{c("left", "center")}
+#' @param  logo_url URL of the logo to be shown in the header.
 #' @param  color Color of the sidebar. One of \code{c("red", "orange", "yellow", "olive", "green", "teal", "blue", "violet", "purple", "pink", "brown", "grey", "black")}
 #' @param inverted Should color be inverted.
 #' @param disable If \code{TRUE}, don't display the header.
 #' @return A header that can be passed to \code{\link[semantic.dashboard]{dashboardPage}}
 #' @export
-dashboard_header <- function(..., color = "", inverted = FALSE, disable = FALSE){
+dashboard_header <- function(..., logo_align = "center", logo_url = "", color = "", inverted = FALSE, disable = FALSE){
   if (disable){
     NULL
   } else {
     verify_value_allowed("color", ALLOWED_COLORS)
 
     inverted_value = get_inverted_value(inverted)
+    logo_align_css_style = ifelse(logo_align == "center", "margin-left: auto;", "")
     shiny::div(class = paste("ui top attached", inverted_value, color, " menu"),
                shiny::tags$a(id = "toggle_menu", class = "item", shiny::tags$i(class = "sidebar icon"), "Menu"),
+               shiny::tags$img(style = paste("height: 38px; margin: 1px;", logo_align_css_style), src = logo_url),
                shiny::tags$div(style = "margin-left: auto", class = paste("ui icon buttons", color), ...))
   }
 }

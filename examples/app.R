@@ -7,7 +7,7 @@ if(interactive()){
   library(DT)
 
   ui <- dashboardPage(
-    dashboardHeader(color = "",
+    dashboardHeader(color = "", logo_align = "center", logo_url = "http://d2v95fjda94ghc.cloudfront.net/appsilon_logo.png",
                     dropdownMenuOutput("dropdown1"),
                     dropdownMenu(icon = icon("warning sign"), taskItem("Project progress...", 50.777, color = "red")),
                     dropdownMenu(type = "notifications", notificationItem("This is notification!", color = "red"))),
